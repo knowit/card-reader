@@ -6,6 +6,7 @@ import WebSocket from 'ws';
 import compression from 'compression';
 import { renderToString } from 'react-dom/server';
 import Html from './Html';
+import config from '../config';
 
 const app = express();
 app.use(compression());
@@ -24,7 +25,7 @@ const renderHtmlString = () =>
   );
 
 const WebSocketServer = WebSocket.Server;
-const wss = new WebSocketServer({port: 40510});
+const wss = { on: () => {}}; //new WebSocketServer({port: config.websocketPort});
 
 wss.on('connection', (ws) => {
   ws.on('message', (message) => {
@@ -36,6 +37,7 @@ app.get('/card_recorder', (req, res) => {
     const id = req.query.id;
     if (!id) {
       res.send(400);
+      return;
     }
     wss.clients.forEach((client) => {
       client.send(id)
