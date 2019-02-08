@@ -1,6 +1,14 @@
 
 import { Client } from 'pg';
+import { getEnvironmentVariabel } from '../config';
 
+const client = new Client({
+  user: getEnvironmentVariabel('SHARING_POSTGRES_USER'),
+  host: getEnvironmentVariabel('SHARING_POSTGRES_DOMAIN'),
+  database: getEnvironmentVariabel('SHARING_POSTGRES_DATABASE'),
+  password: getEnvironmentVariabel('SHARING_POSTGRES_PASSWORD'),
+  port: getEnvironmentVariabel('SHARING_POSTGRES_PORT'),
+});
 
 client.connect();
 
