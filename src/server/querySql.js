@@ -1,8 +1,6 @@
 
 import { Client } from 'pg';
 
-const connectionString = 'postgresql://sharingiscaringuser:ShareAndCareWithPeters2019!!@rome.c7eijnq1j6fs.eu-central-1.rds.amazonaws.com:3132/sharingiscaringdb'
-
 
 client.connect();
 
