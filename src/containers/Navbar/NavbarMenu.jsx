@@ -12,7 +12,6 @@ import {
 } from '@material-ui/core';
 import {
     People,
-    Event,
     Home,
 } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
@@ -60,16 +59,6 @@ const NavbarMenu = ({isOpen, onClose}) =>  {
                 </ListItemIcon>
                 <ListItemText>
                     Hjem
-                </ListItemText>
-            </ListItem>
-        </Link>
-        <Link to="/event">
-            <ListItem>
-                <ListItemIcon>
-                    <Event />
-                </ListItemIcon>
-                <ListItemText>
-                    Events
                 </ListItemText>
             </ListItem>
         </Link>

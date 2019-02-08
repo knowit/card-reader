@@ -7,6 +7,7 @@ import compression from 'compression';
 import { renderToString } from 'react-dom/server';
 import Html from './Html';
 import config from '../config';
+import { executeQuery } from './querySql';
 
 const app = express();
 app.use(compression());
@@ -25,7 +26,7 @@ const renderHtmlString = () =>
   );
 
 const WebSocketServer = WebSocket.Server;
-const wss = { on: () => {}}; //new WebSocketServer({port: config.websocketPort});
+const wss = new WebSocketServer({port: config.websocketPort}); //{ on: () => {}};
 
 wss.on('connection', (ws) => {
   ws.on('message', (message) => {
@@ -45,14 +46,48 @@ app.get('/card_recorder', (req, res) => {
     res.send(200)
 })
 
-app.put('/person', (req, res) => {
-
+app.get('/api/events/:id', async (req, res) => {
+  if (!req.params.id) {
+    res.sendStatus(400);
+  }
+  const query = {
+    name: 'fetch-event-by-id',
+    text: 'SELECT * FROM events WHERE id = $1',
+    values: [req.params.id]
+  }
+  const result = await executeQuery(query);
+  if (result.length === 0){
+    res.sendStatus(400);
+  }
+  res.send(result[0]);
 })
 
-app.get('/person', (req, res) => {
 
+app.get('/api/events', async (req, res) => {
+
+  const query = {
+    name: 'fetch-events',
+    text: 'SELECT * FROM events',
+  }
+  const result = await executeQuery(query);
+  res.send(result);
 })
 
+app.get('/api/persons/:cardId', async (req, res) => {
+  if (!req.params.cardId) {
+    res.sendStatus(400);
+  }
+  const query = {
+    name: 'fetch-person-by-card-id',
+    text: 'SELECT * FROM persons WHERE card_id = $1',
+    values: [req.params.cardId]
+  }
+  const result = await executeQuery(query);
+  if (result.length === 0){
+    res.sendStatus(400);
+  }
+  res.send(result[0]);
+})
 app.get('*', (req, res) => {
     const htmlString = renderHtmlString();
     res.send(`<!doctype html>\n${htmlString}`);

@@ -2,23 +2,23 @@ import React, { Fragment } from 'react';
 import Route from 'react-router-dom/Route';
 import Switch from 'react-router-dom/Switch';
 import styled from '@emotion/styled';
-import { colors } from '../util/variables';
-import { css, mediaQueries } from '@emotion/core';
+import { colors, mediaQueries } from '../util/variables';
+import { css } from '@emotion/core';
 
 const StyledPageWrapper = styled.div`
   min-height: 100vh;
   width: 100vw;
   display: flex;
   flex-flow: column;
-  background-color: ${p => p.backgroundColor || 'white'};
+  background-color: ${p => p.backgroundColor || colors.greyLight};
 `;
 const PageWrapper = ({children, ...rest}) => (
     <StyledPageWrapper {...rest}>{children}</StyledPageWrapper>
 );
 
-const PageContainer = styled.div`
+const StyledContentContainer = styled.div`
   padding: 0 5%;
-  background-color: ${p => p.backgroundColor || colors.knowit.greyLightest};
+  margin-top: 5rem;
   @media (${mediaQueries.xxlarge}) {
     padding: 0 20%;
   }
@@ -36,4 +36,4 @@ export {
 }
 
 
-export default Content;
+export default PageWrapper;

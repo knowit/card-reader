@@ -4,6 +4,7 @@ import Switch from 'react-router-dom/Switch';
 import { Global, css } from '@emotion/core';
 import Home from '../Home';
 import Navbar from '../Navbar';
+import EventPage from '../Event';
 
 const globalStyles = css`
   body {
@@ -19,8 +20,8 @@ const App = () => (
     <Global styles={globalStyles} />
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/event" component={Home} />
-      <Route exact path="/user" component={Home} />
+      <Route path="/event/:eventId" component={EventPage} />
+      <Route path="/user" component={Home} />
     </Switch>
   </Fragment>
 );
