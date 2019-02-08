@@ -1,4 +1,3 @@
-
 import { Client } from 'pg';
 import { getEnvironmentVariabel } from '../config';
 
@@ -12,14 +11,11 @@ const client = new Client({
 
 client.connect();
 
-export const executeQuery = async (q) => {
-    console.log(q)
-    try {
-        const result = await client.query(q.text, q.values);
-        console.log("res", result)
-        return result.rows;
-    } catch(err) {
-        console.error(err.stack)
-    }
-    console.log("wtf")
-}
+export const executeQuery = async q => {
+  try {
+    const result = await client.query(q.text, q.values);
+    return result.rows;
+  } catch (err) {
+    console.error(err.stack);
+  }
+};

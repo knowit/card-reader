@@ -1,4 +1,3 @@
-
 export const getEnvironmentVariabel = (key, fallback = undefined) => {
   const env = 'env';
   const variabel = process[env][key]; // Hack to prevent DefinePlugin replacing process.env
@@ -6,11 +5,10 @@ export const getEnvironmentVariabel = (key, fallback = undefined) => {
 };
 
 const config = {
-    websocketDomain: 'ws://localhost',
-    websocketPort: 33333,
-    auth0Domain: '',
-}
-
+  websocketDomain: 'ws://localhost',
+  websocketPort: 33333,
+  auth0Domain: '',
+};
 
 export function getUniversalConfig() {
   if (typeof window === 'undefined') {

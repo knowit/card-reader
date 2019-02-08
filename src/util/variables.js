@@ -43,9 +43,4 @@ const spacing = {
   large: `${spacingUnit * 2}px`,
 };
 
-
-export { 
-    colors,
-    mediaQueries,
-    spacing,
-}
+export { colors, mediaQueries, spacing };

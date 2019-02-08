@@ -12,8 +12,8 @@ const StyledPageWrapper = styled.div`
   flex-flow: column;
   background-color: ${p => p.backgroundColor || colors.greyLight};
 `;
-const PageWrapper = ({children, ...rest}) => (
-    <StyledPageWrapper {...rest}>{children}</StyledPageWrapper>
+const PageWrapper = ({ children, ...rest }) => (
+  <StyledPageWrapper {...rest}>{children}</StyledPageWrapper>
 );
 
 const StyledContentContainer = styled.div`
@@ -31,9 +31,6 @@ const ContentContainer = ({ children, ...rest }) => (
   <StyledContentContainer {...rest}>{children}</StyledContentContainer>
 );
 
-export {
-    ContentContainer,
-}
-
+export { ContentContainer };
 
 export default PageWrapper;

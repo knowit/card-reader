@@ -7,7 +7,7 @@ const renderApp = () =>
     <BrowserRouter>
       <App />
     </BrowserRouter>,
-    document.getElementById('root')
+    document.getElementById('root'),
   );
 
 renderApp();

@@ -13,7 +13,6 @@ const globalStyles = css`
   }
 `;
 
-
 const App = () => (
   <Fragment>
     <Navbar />
