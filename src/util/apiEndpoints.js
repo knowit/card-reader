@@ -34,30 +34,45 @@ export function resolveJsonOrRejectWithError(res) {
       .catch(reject);
   });
 }
+
+export const fetchWithAuthorization = async (url, config = {}, forceAuth) => {
+  return fetch(url, {
+    ...config,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+};
+
 const baseUrl = '/api';
 export const fetchEvents = () =>
-  fetch(`${baseUrl}/events`).then(resolveJsonOrRejectWithError);
+  fetchWithAuthorization(`${baseUrl}/events`).then(
+    resolveJsonOrRejectWithError,
+  );
 export const fetchEvent = eventId =>
-  fetch(`${baseUrl}/events/${eventId}`).then(resolveJsonOrRejectWithError);
+  fetchWithAuthorization(`${baseUrl}/events/${eventId}`).then(
+    resolveJsonOrRejectWithError,
+  );
 export const fetchPerson = cardId =>
-  fetch(`${baseUrl}/persons/${cardId}`).then(resolveJsonOrRejectWithError);
+  fetchWithAuthorization(`${baseUrl}/persons/${cardId}`).then(
+    resolveJsonOrRejectWithError,
+  );
 export const fetchCompanies = () =>
-  fetch(`${baseUrl}/companies`).then(resolveJsonOrRejectWithError);
+  fetchWithAuthorization(`${baseUrl}/companies`).then(
+    resolveJsonOrRejectWithError,
+  );
 
 export const updatePerson = (id, body) =>
-  fetch(`${baseUrl}/persons/${id}`, {
+  fetchWithAuthorization(`${baseUrl}/persons/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
-  });
+  }).then(resolveJsonOrRejectWithError);
 
 export const participate = body =>
-  fetch(`${baseUrl}/participate`, {
+  fetchWithAuthorization(`${baseUrl}/participate`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(body),
-  });
+  }).then(resolveJsonOrRejectWithError);

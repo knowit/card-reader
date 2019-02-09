@@ -5,6 +5,7 @@ import PageWrapper, { ContentContainer } from '../../components/PageWrapper';
 import { fetchEvent, fetchPerson, participate } from '../../util/apiEndpoints';
 import PersonForm from '../Person/PersonForm';
 import Spinner from '../../components/Spinner';
+import ErrorMessage from '../../components/ErrorMessage';
 
 const isMissingPersonData = person =>
   !person ||
@@ -37,31 +38,34 @@ class EventPage extends React.Component {
 
   onAddParticipation = async (personId, person) => {
     console.log('participate');
+    const missingPersonData = isMissingPersonData(person);
+    if (missingPersonData) {
+      this.onAddError('Mangler data på deg');
+    }
     const { event } = this.state;
-    if (!isMissingPersonData(person)) {
-      this.setState({ person: undefined });
+    if (!missingPersonData) {
       try {
         await participate({
           event_id: event.id,
           person_id: personId,
         });
+        this.setState({ person: undefined });
       } catch (err) {
-        this.setState({
-          error: 'Du kan bare melde deg på en gang, eller vil du betale mer?!',
-        });
-      }
-    } else {
-      try {
-        await participate({
-          event_id: event.id,
-          person_id: personId,
-        });
-      } catch (err) {
-        this.setState({
-          error: 'Du kan bare melde deg på en gang, eller vil du betale mer?!',
-        });
+        this.onAddError(
+          'Du kan bare melde deg på en gang, eller vil du betale mer?!',
+        );
       }
     }
+  };
+
+  onAddError = error => {
+    this.setState({
+      error,
+    });
+
+    setTimeout(() => {
+      this.setState({ error: '' });
+    }, 2000);
   };
 
   cardListener = () => {
@@ -75,18 +79,26 @@ class EventPage extends React.Component {
     ws.onmessage = async ev => {
       if (ev.data !== 'connected') {
         this.setState({ loading: true });
-        const person = await fetchPerson(ev.data);
-        if (!person) {
-          this.setState({ person: { card_id: ev.data } });
-        }
+        try {
+          const person = await fetchPerson(ev.data);
+          if (!person) {
+            this.setState({ person: { card_id: ev.data } });
+          }
 
-        const missingPersonData = isMissingPersonData(person);
-        if (!missingPersonData) {
-          this.onAddParticipation(person.id, person);
+          const missingPersonData = isMissingPersonData(person);
+          if (!missingPersonData) {
+            this.onAddParticipation(person.id, person);
+          }
+          await setTimeout(() => {
+            this.setState({ loading: false, person, missingPersonData });
+          }, 1000);
+        } catch (err) {
+          this.setState({
+            loading: false,
+            person: { card_id: ev.data },
+            missingPersonData: true,
+          });
         }
-        setTimeout(() => {
-          this.setState({ loading: false, person, missingPersonData });
-        }, 1000);
       }
     };
   };
@@ -96,14 +108,13 @@ class EventPage extends React.Component {
     if (!event) {
       return null;
     }
-
     return (
       <PageWrapper>
         <ContentContainer>
           <h1>{event.name}</h1>
-          {error && <p>{error}</p>}
-          {loading && <Spinner text="Kort registrert. Vennligst vent." />}
           {person && <p>{`Hei ${person.first_name} ${person.last_name}`}</p>}
+          {error && <ErrorMessage text={error} />}
+          {loading && <Spinner text="Kort registrert. Vennligst vent." />}
           {missingPersonData && (
             <PersonForm
               onAddParticipation={this.onAddParticipation}

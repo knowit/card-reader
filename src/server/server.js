@@ -102,7 +102,7 @@ app.get('/api/persons/:cardId', async (req, res) => {
   };
   const result = await executeQuery(query);
   if (result.length === 0) {
-    res.sendStatus(400);
+    res.sendStatus(404);
   }
   res.send(result[0]);
 });

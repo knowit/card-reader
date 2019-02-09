@@ -31,7 +31,7 @@ class Home extends React.Component {
             {events.map(event => {
               return (
                 <li>
-                  <Link to={`/events/${event.id}`}>{event.name}</Link>
+                  <Link to={`/event/${event.id}`}>{event.name}</Link>
                 </li>
               );
             })}
