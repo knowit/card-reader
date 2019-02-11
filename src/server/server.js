@@ -17,7 +17,7 @@ import {
   createPerson,
   fetchEvents,
   fetchEventById,
-  fetchCompanies,
+  fetchCompanies, fetchParticipantsByEventId,
 } from './queries';
 
 const app = express();
@@ -63,6 +63,16 @@ app.get('/card_recorder/:cardId', (req, res) => {
 
 //Events
 
+app.get('/api/events', async (req, res) => {
+  try {
+    const result = await fetchEvents();
+    res.send(result);
+  } catch (err) {
+    res.sendStatus(400);
+  }
+});
+
+
 app.get('/api/events/:id', async (req, res) => {
   try {
     const result = await fetchEventById(req.params.id);
@@ -72,9 +82,9 @@ app.get('/api/events/:id', async (req, res) => {
   }
 });
 
-app.get('/api/events', async (req, res) => {
+app.get('/api/events/:id/participants', async (req, res) => {
   try {
-    const result = await fetchEvents();
+    const result = await fetchParticipantsByEventId(req.params.id);
     res.send(result);
   } catch (err) {
     res.sendStatus(400);

@@ -21,8 +21,8 @@ const App = () => (
     <Global styles={globalStyles} />
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route path="/event" component={EventPage} />
-      <Route path="/user" component={Home} />
+      <Route path="/events" component={EventPage} />
+      <Route path="/users" component={Home} />
     </Switch>
     <Footer />
   </Fragment>

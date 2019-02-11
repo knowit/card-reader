@@ -7,6 +7,7 @@ import Spinner from '../../components/Spinner';
 import RegistrationSucess from '../../components/RegistrationSucess';
 import ErrorMessage from '../../components/ErrorMessage';
 import formatDate from '../../util/formatDate';
+import EventParticipantsList from './EventParticipantsList';
 
 const isMissingPersonData = person =>
   !person ||
@@ -53,7 +54,7 @@ class EventParticipationPage extends React.Component {
         this.setState({
           person: undefined,
           missingPersonData: false,
-          success: true,      
+          success: true,
           loading: false,
         });
         setTimeout(() => {
@@ -139,6 +140,7 @@ class EventParticipationPage extends React.Component {
             person={person}
           />
         )}
+        <EventParticipantsList eventId={event.id} />
       </Fragment>
     );
   }
