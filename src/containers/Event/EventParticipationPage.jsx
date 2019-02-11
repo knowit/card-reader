@@ -53,12 +53,12 @@ class EventParticipationPage extends React.Component {
         this.setState({
           person: undefined,
           missingPersonData: false,
-          success: true,      
+          success: `Registrering fullført ${person.first_name} ${person.last_name}! Kos deg i kveld :)`,      
           loading: false,
         });
         setTimeout(() => {
-          this.setState({ success: false });
-        }, 3000);
+          this.setState({ success: undefined });
+        }, 4000);
       } catch (err) {
         this.setState({ person: undefined, missingPersonData: false });
         this.onAddError(
@@ -131,7 +131,7 @@ class EventParticipationPage extends React.Component {
         <h1>{event.name}</h1>
         <i>{`Dato: ${formatDate(event.date)}`}</i>
         {error && <ErrorMessage text={error} />}
-        {success && <RegistrationSucess text="Registrering fullført!" />}
+        {success && <RegistrationSucess text={success} />}
         {loading && <Spinner text="Kort registrert. Vennligst vent." />}
         {missingPersonData && (
           <PersonForm
