@@ -3,10 +3,9 @@ import Route from 'react-router-dom/Route';
 import Switch from 'react-router-dom/Switch';
 import styled from '@emotion/styled';
 import { colors, mediaQueries, spacing } from '../util/variables';
-import { css } from '@emotion/core';
 
 const StyledPageWrapper = styled.div`
-  min-height: 100vh;
+  min-height: 80vh;
   width: 100vw;
   display: flex;
   flex-flow: column;

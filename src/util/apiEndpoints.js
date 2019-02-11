@@ -1,7 +1,7 @@
 import defined from 'defined';
 
-export function createErrorPayload(status, message, json) {
-  return Object.assign(new Error(message), { status, json });
+export function createErrorPayload(status, message = "") {
+  return Object.assign(new Error(message), { status });
 }
 
 export function resolveJsonOrRejectWithError(res) {
@@ -20,18 +20,7 @@ export function resolveJsonOrRejectWithError(res) {
       }
       return resolve(res.json());
     }
-    return res
-      .json()
-      .then(json =>
-        reject(
-          createErrorPayload(
-            res.status,
-            defined(json.message, res.statusText),
-            json,
-          ),
-        ),
-      )
-      .catch(reject);
+    return reject(res.status);
   });
 }
 
@@ -65,6 +54,15 @@ export const fetchCompanies = () =>
 export const updatePerson = (id, body) =>
   fetchWithAuthorization(`${baseUrl}/persons/${id}`, {
     method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  }).then(resolveJsonOrRejectWithError);
+
+export const addPerson = body =>
+  fetchWithAuthorization(`${baseUrl}/persons`, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },

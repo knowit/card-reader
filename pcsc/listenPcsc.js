@@ -62,7 +62,7 @@ pcsc.on('reader', function(reader) {
                   console.log('num', number);
                   try {
                     await fetch(
-                      `http://localhost:3000/card_recorder?id=${number}`,
+                      `http://localhost:3000/card_recorder/${number}`,
                     );
                   } catch (err) {
                     console.log('Piece of shit');

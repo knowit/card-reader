@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
 import { colors } from '../../util/variables';
 import NavbarMenu from './NavbarMenu';
 
@@ -18,7 +17,7 @@ const styles = {
     marginRight: 20,
   },
   red: {
-    backgroundColor: colors.knowit.blueLight,
+    backgroundColor: colors.knowit.blue,
   },
 };
 
@@ -38,7 +37,6 @@ const Right = styled('div')`
 const Navbar = props => {
   const [isOpen, setOpen] = useState(false);
   const { classes } = props;
-  console.log(isOpen);
   return (
     <Fragment>
       <AppBar className={classes.red}>

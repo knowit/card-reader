@@ -9,7 +9,11 @@ import Button from '@material-ui/core/Button';
 import config from '../../config';
 import { fetchEvents } from '../../util/apiEndpoints';
 import { spacing, colors } from '../../util/variables';
-import { fetchCompanies, updatePerson } from '../../util/apiEndpoints';
+import {
+  fetchCompanies,
+  updatePerson,
+  addPerson,
+} from '../../util/apiEndpoints';
 
 const StyledTextField = styled(TextField)`
   margin: ${spacing.normal} 0;
@@ -48,25 +52,18 @@ class PersonForm extends React.Component {
       last_name: values.last_name,
       company_id: values.company_id,
     };
+    let updatedPerson;
     try {
-      const p = await updatePerson(person.id, body);
+      if (person.id) {
+        updatedPerson = await updatePerson(person.id, body);
+      } else {
+        updatedPerson = await addPerson(values);
+      }
+      actions.setSubmitting(false);
     } catch (err) {
       console.error(err);
     }
-
-    onAddParticipation(person.id, values);
-    /*MyImaginaryRestApiCall(user.id, values).then(
-            updatedUser => {
-              actions.setSubmitting(false);
-              updateUser(updatedUser);
-              onClose();
-            },
-            error => {
-              actions.setSubmitting(false);
-              actions.setErrors(transformMyRestApiErrorsToAnObject(error));
-              actions.setStatus({ msg: 'Set some arbitrary status or data' });
-            }
-          );*/
+    onAddParticipation(updatedPerson.id, values);
   };
 
   render() {
@@ -75,7 +72,7 @@ class PersonForm extends React.Component {
     return (
       <Fragment>
         <hr />
-        <h1>Oppdater bruker</h1>
+        <h1>{person.id ? 'Oppdater bruker' : 'Opprett bruker'}</h1>
         <Formik
           initialValues={person}
           onSubmit={this.onSubmit}
