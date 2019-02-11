@@ -12,8 +12,8 @@ const redStyle = css`
   color: white;
 
   & svg {
-      height: 80px;
-      width: 80px;
+    height: 80px;
+    width: 80px;
   }
 `;
 const ErrorMessage = ({ text }) => {

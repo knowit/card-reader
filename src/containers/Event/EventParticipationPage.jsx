@@ -1,7 +1,12 @@
 import React, { Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import config from '../../config';
-import { fetchEvent, fetchPerson, participate } from '../../util/apiEndpoints';
+import {
+  fetchEvent,
+  fetchPerson,
+  participate,
+  fetchEventParticipants,
+} from '../../util/apiEndpoints';
 import PersonForm from '../Person/PersonForm';
 import Spinner from '../../components/Spinner';
 import RegistrationSucess from '../../components/RegistrationSucess';
@@ -23,6 +28,7 @@ class EventParticipationPage extends React.Component {
       person: undefined,
       loading: false,
       success: false,
+      participants: [],
       missingPersonData: false,
       error: '',
     };
@@ -34,12 +40,18 @@ class EventParticipationPage extends React.Component {
         params: { eventId },
       },
     } = this.props;
+    const participants = await fetchEventParticipants(eventId);
     const event = await fetchEvent(eventId);
-    this.setState({ event });
+    this.setState({ event, participants });
     this.cardListener();
   }
 
   onAddParticipation = async (personId, person) => {
+    const {
+      match: {
+        params: { eventId },
+      },
+    } = this.props;
     const missingPersonData = isMissingPersonData(person);
     if (missingPersonData) {
       this.onAddError('Mangler data på deg');
@@ -51,11 +63,15 @@ class EventParticipationPage extends React.Component {
           event_id: event.id,
           person_id: personId,
         });
+        const participants = await fetchEventParticipants(eventId);
         this.setState({
           person: undefined,
           missingPersonData: false,
-          success: `Registrering fullført ${person.first_name} ${person.last_name}! Kos deg i kveld :)`,      
+          success: `Registrering fullført ${person.first_name} ${
+            person.last_name
+          }! Kos deg i kveld :)`,
           loading: false,
+          participants,
         });
         setTimeout(() => {
           this.setState({ success: undefined });
@@ -91,8 +107,8 @@ class EventParticipationPage extends React.Component {
     ws.onmessage = async ev => {
       if (ev.data !== 'connected') {
         this.setState({ loading: true });
-          await setTimeout(async () => {
-            try {
+        await setTimeout(async () => {
+          try {
             const person = await fetchPerson(ev.data);
             if (!person) {
               this.setState({ person: { card_id: ev.data } });
@@ -103,14 +119,14 @@ class EventParticipationPage extends React.Component {
               this.onAddParticipation(person.id, person);
             }
             this.setState({ loading: false, person, missingPersonData });
-                    } catch (err) {
-          this.setState({
-            loading: false,
-            person: { card_id: ev.data },
-            missingPersonData: true,
-          });
-        }
-          }, 1000);
+          } catch (err) {
+            this.setState({
+              loading: false,
+              person: { card_id: ev.data },
+              missingPersonData: true,
+            });
+          }
+        }, 1000);
       }
     };
   };
@@ -123,6 +139,7 @@ class EventParticipationPage extends React.Component {
       missingPersonData,
       error,
       success,
+      participants,
     } = this.state;
     if (!event) {
       return null;
@@ -140,7 +157,7 @@ class EventParticipationPage extends React.Component {
             person={person}
           />
         )}
-        <EventParticipantsList eventId={event.id} />
+        <EventParticipantsList participants={participants} />
       </Fragment>
     );
   }

@@ -1,6 +1,6 @@
 import defined from 'defined';
 
-export function createErrorPayload(status, message = "") {
+export function createErrorPayload(status, message = '') {
   return Object.assign(new Error(message), { status });
 }
 

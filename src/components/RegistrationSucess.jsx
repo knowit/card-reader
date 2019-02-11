@@ -13,18 +13,18 @@ const greenStyle = css`
   color: white;
 
   & svg {
-      height: 80px;
-      width: 80px;
+    height: 80px;
+    width: 80px;
   }
 `;
 
 const RegistrationSucess = ({ text }) => {
   return (
-    <div  css={greenStyle}>
-    <FixedMessage css={greenStyle}>
-      <CheckCircle/>
-      {text && <p>{text}</p>}
-    </FixedMessage>
+    <div css={greenStyle}>
+      <FixedMessage css={greenStyle}>
+        <CheckCircle />
+        {text && <p>{text}</p>}
+      </FixedMessage>
     </div>
   );
 };

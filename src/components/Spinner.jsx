@@ -1,8 +1,7 @@
-
 /** @jsx jsx */
 import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { css, jsx} from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 import PropTypes from 'prop-types';
 import FixedMessage from './FixedMessage';
 import { colors } from '../util/variables';

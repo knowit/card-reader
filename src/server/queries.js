@@ -120,15 +120,15 @@ const fetchEventById = async id => {
 
 const fetchParticipantsByEventId = async eventId => {
   if (!eventId) {
-    throw new Error({status: 400, message: 'No event id received at server'});
+    throw new Error({ status: 400, message: 'No event id received at server' });
   }
   const query = {
     name: 'fetch-event-participants-by-id',
     text:
-    'SELECT persons.id as person_id, first_name, last_name, companies.name as company FROM ((persons ' +
-    'INNER JOIN participation ON persons.id = participation.person_id) ' +
-    'INNER JOIN companies ON persons.company_id = companies.id) ' +
-    'WHERE participation.event_id = $1',
+      'SELECT persons.id as person_id, first_name, last_name, companies.name as company FROM ((persons ' +
+      'INNER JOIN participation ON persons.id = participation.person_id) ' +
+      'INNER JOIN companies ON persons.company_id = companies.id) ' +
+      'WHERE participation.event_id = $1',
     values: [eventId],
   };
 

@@ -1,43 +1,45 @@
 import React from 'react';
-import { fetchEventParticipants } from '../../util/apiEndpoints';
+import styled from '@emotion/styled';
 
-class EventParticipantsList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      participants: [],
-    };
-  }
+const StyledRow = styled.tr`
+  border: 1px solid black;
+`;
 
-  async componentDidMount() {
-    const { eventId } = this.props;
-    const participants = await fetchEventParticipants(eventId);
-    console.log(participants);
-    this.setState({ participants });
-  }
+const StyledCell = styled.td`
+  padding: 1rem;
+  border: 1px solid black;
+`;
 
-  render() {
-    const { participants } = this.state;
-    return (
-      <div>
-        <h2>Participants</h2>
-        <table>
-          <tbody>
-            {participants.map(person => {
-              const { person_id, first_name, last_name, company } = person;
-              return (
-                <tr key={person_id}>
-                  <td>{first_name}</td>
-                  <td>{last_name}</td>
-                  <td>{company}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    );
-  }
-}
+const StyledHeader = styled.th`
+  padding: 1rem;
+  border: 1px solid black;
+`;
+
+const EventParticipantsList = ({ participants }) => (
+  <div>
+    <h2>Deltakere</h2>
+    <table>
+      <thead>
+        <StyledRow>
+          <StyledHeader>Fornavn</StyledHeader>
+          <StyledHeader>Etternavn</StyledHeader>
+          <StyledHeader>Firma</StyledHeader>
+        </StyledRow>
+      </thead>
+      <tbody>
+        {participants.map(person => {
+          const { person_id, first_name, last_name, company } = person;
+          return (
+            <StyledRow key={person_id}>
+              <StyledCell>{first_name}</StyledCell>
+              <StyledCell>{last_name}</StyledCell>
+              <StyledCell>{company}</StyledCell>
+            </StyledRow>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+);
 
 export default EventParticipantsList;
