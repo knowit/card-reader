@@ -4,7 +4,7 @@ import { spacing, colors } from '../util/variables';
 
 const StyledFixedMessage = styled.div`
   position: fixed;
-  top: 40%;
+  top: 20%;
   left: 50%;
   margin-left: -20%;
   width: 20%;
@@ -16,11 +16,7 @@ const StyledFixedMessage = styled.div`
 `;
 
 const FixedMessage = ({ children, ...rest }) => {
-  return (
-    <StyledFixedMessage {...rest}>
-       {children}
-    </StyledFixedMessage>
-  );
+  return <StyledFixedMessage {...rest}>{children}</StyledFixedMessage>;
 };
 
 export default FixedMessage;
