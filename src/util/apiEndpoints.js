@@ -76,3 +76,9 @@ export const participate = body =>
     method: 'POST',
     body: JSON.stringify(body),
   }).then(resolveJsonOrRejectWithError);
+
+export const fetchEventParticipants = eventId => {
+  return fetchWithAuthorization(
+    `${baseUrl}/events/${eventId}/participants`,
+  ).then(resolveJsonOrRejectWithError);
+};

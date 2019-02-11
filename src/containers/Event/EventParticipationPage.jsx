@@ -7,6 +7,7 @@ import Spinner from '../../components/Spinner';
 import RegistrationSucess from '../../components/RegistrationSucess';
 import ErrorMessage from '../../components/ErrorMessage';
 import formatDate from '../../util/formatDate';
+import EventParticipantsList from './EventParticipantsList';
 
 const isMissingPersonData = person =>
   !person ||
@@ -51,12 +52,16 @@ class EventParticipationPage extends React.Component {
           event_id: event.id,
           person_id: personId,
         });
-        this.setState({ person: undefined, missingPersonData: false, success: true});
+        this.setState({
+          person: undefined,
+          missingPersonData: false,
+          success: true,
+        });
         setTimeout(() => {
-          this.setState({success: false})
-        }, 3000); 
+          this.setState({ success: false });
+        }, 3000);
       } catch (err) {
-        this.setState({ person: undefined, missingPersonData: false, });
+        this.setState({ person: undefined, missingPersonData: false });
         console.log(err);
         this.onAddError(
           'Du kan bare melde deg på en gang, eller vil du betale mer?!',
@@ -111,7 +116,14 @@ class EventParticipationPage extends React.Component {
   };
 
   render() {
-    const { loading, person, event, missingPersonData, error, success } = this.state;
+    const {
+      loading,
+      person,
+      event,
+      missingPersonData,
+      error,
+      success,
+    } = this.state;
     if (!event) {
       return null;
     }
@@ -129,6 +141,7 @@ class EventParticipationPage extends React.Component {
             person={person}
           />
         )}
+        <EventParticipantsList eventId={event.id} />
       </Fragment>
     );
   }

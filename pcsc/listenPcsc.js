@@ -4,7 +4,8 @@ var pcsc = require('pcsclite');
 const fetch = require('isomorphic-fetch');
 function buf2hex(buffer) {
   return Array.prototype.map
-    .call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).splice(0, 4)
+    .call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2))
+    .splice(0, 4)
     .join('');
 }
 
@@ -47,7 +48,7 @@ pcsc.on('reader', function(reader) {
             //
             console.log('Protocol(', reader.name, '):', protocol);
             reader.transmit(
-               Buffer.from([0xff, 0xca, 0x00, 0x00, 0x00]),
+              Buffer.from([0xff, 0xca, 0x00, 0x00, 0x00]),
               7,
               protocol,
               async function(err, data) {
@@ -56,15 +57,15 @@ pcsc.on('reader', function(reader) {
                 } else {
                   console.log('Data received', data);
                   const hex = buf2hex(data);
-                  console.log("hex", hex)
+                  console.log('hex', hex);
                   const number = parseInt(hex, 16);
-                  console.log("num", number)
+                  console.log('num', number);
                   try {
                     await fetch(
                       `http://localhost:3000/card_recorder?id=${number}`,
                     );
                   } catch (err) {
-                    console.log("Piece of shit")
+                    console.log('Piece of shit');
                     console.error(err);
                   }
                 }

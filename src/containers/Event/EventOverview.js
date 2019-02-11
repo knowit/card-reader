@@ -2,7 +2,6 @@ import React from 'react';
 import { fetchEvents } from '../../util/apiEndpoints';
 import { Link } from 'react-router-dom';
 
-
 class EventOverview extends React.Component {
   constructor() {
     super();
@@ -10,7 +9,6 @@ class EventOverview extends React.Component {
     this.state = {
       events: [],
     };
-
   }
 
   async componentDidMount() {
@@ -22,9 +20,7 @@ class EventOverview extends React.Component {
     const { events } = this.state;
     return (
       <div>
-        <h1>
-          Alle events
-        </h1>
+        <h1>Alle events</h1>
         <ul>
           {events.map(event => {
             return (
@@ -35,7 +31,7 @@ class EventOverview extends React.Component {
           })}
         </ul>
       </div>
-    )
+    );
   }
 }
 

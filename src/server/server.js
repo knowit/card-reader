@@ -53,6 +53,15 @@ app.get('/card_recorder', (req, res) => {
 
 //Events
 
+app.get('/api/events', async (req, res) => {
+  const query = {
+    name: 'fetch-events',
+    text: 'SELECT * FROM events',
+  };
+  const result = await executeQuery(query);
+  res.send(result);
+});
+
 app.get('/api/events/:id', async (req, res) => {
   if (!req.params.id) {
     res.sendStatus(400);
@@ -69,12 +78,21 @@ app.get('/api/events/:id', async (req, res) => {
   res.send(result[0]);
 });
 
-app.get('/api/events', async (req, res) => {
+app.get('/api/events/:id/participants', async (req, res) => {
+  if (!req.params.id) {
+    res.sendStatus(400);
+  }
   const query = {
-    name: 'fetch-events',
-    text: 'SELECT * FROM events',
+    name: 'fetch-event-participants-by-id',
+    text:
+      'SELECT persons.id as person_id, first_name, last_name, companies.name as company FROM ((persons ' +
+      'INNER JOIN participation ON persons.id = participation.person_id) ' +
+      'INNER JOIN companies ON persons.company_id = companies.id) ' +
+      'WHERE participation.event_id = $1',
+    values: [req.params.id],
   };
   const result = await executeQuery(query);
+  console.log(result);
   res.send(result);
 });
 

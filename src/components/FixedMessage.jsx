@@ -16,11 +16,7 @@ const StyledFixedMessage = styled.div`
 `;
 
 const FixedMessage = ({ children, ...rest }) => {
-  return (
-    <StyledFixedMessage {...rest}>
-       {children}
-    </StyledFixedMessage>
-  );
+  return <StyledFixedMessage {...rest}>{children}</StyledFixedMessage>;
 };
 
 export default FixedMessage;

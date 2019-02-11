@@ -8,10 +8,7 @@ const EventPage = ({ match }) => {
     <PageWrapper>
       <ContentContainer>
         <Switch>
-          <Route
-            exact path={match.url}
-            component={EventsOverview}
-          />
+          <Route exact path={match.url} component={EventsOverview} />
           <Route
             path={`${match.url}/:eventId`}
             component={EventParticipationPage}

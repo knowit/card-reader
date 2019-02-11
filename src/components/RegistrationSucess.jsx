@@ -6,8 +6,8 @@ import { css } from '@emotion/core';
 import { colors } from '../util/variables';
 
 const greenStyle = css`
-    color: ${colors.knowit.green};
-`
+  color: ${colors.knowit.green};
+`;
 
 const RegistrationSucess = ({ text }) => {
   return (
