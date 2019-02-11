@@ -72,7 +72,7 @@ class PersonForm extends React.Component {
     return (
       <Fragment>
         <hr />
-        <h1>Oppdater bruker</h1>
+        <h1>{person.id ? 'Oppdater bruker' : 'Opprett bruker'}</h1>
         <Formik
           initialValues={person}
           onSubmit={this.onSubmit}
