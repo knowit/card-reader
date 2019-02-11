@@ -3,7 +3,6 @@
 var pcsc = require('pcsclite');
 const fetch = require('isomorphic-fetch');
 function buf2hex(buffer) {
-  // buffer is an ArrayBuffer
   return Array.prototype.map
     .call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2))
     .join('');
@@ -19,15 +18,13 @@ pcsc.on('reader', function(reader) {
 
   reader.on('status', function(status) {
     console.log('Status(', this.name, '):', status);
-    console.log('YO');
-    /* check what has changed */
     var changes = this.state ^ status.state;
     if (changes) {
       if (
         changes & this.SCARD_STATE_EMPTY &&
         status.state & this.SCARD_STATE_EMPTY
       ) {
-        console.log('card removed'); /* card removed */
+        console.log('card removed');
         reader.disconnect(reader.SCARD_LEAVE_CARD, function(err) {
           if (err) {
             console.log(err);
@@ -50,7 +47,7 @@ pcsc.on('reader', function(reader) {
             //
             console.log('Protocol(', reader.name, '):', protocol);
             reader.transmit(
-              new Buffer([0xff, 0xca, 0x00, 0x00, 0x04]),
+               Buffer.from([0xff, 0xca, 0x00, 0x00, 0x04]),
               4,
               protocol,
               async function(err, data) {

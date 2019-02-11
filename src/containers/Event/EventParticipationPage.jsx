@@ -4,7 +4,9 @@ import config from '../../config';
 import { fetchEvent, fetchPerson, participate } from '../../util/apiEndpoints';
 import PersonForm from '../Person/PersonForm';
 import Spinner from '../../components/Spinner';
+import RegistrationSucess from '../../components/RegistrationSucess';
 import ErrorMessage from '../../components/ErrorMessage';
+import formatDate from '../../util/formatDate';
 
 const isMissingPersonData = person =>
   !person ||
@@ -19,6 +21,7 @@ class EventParticipationPage extends React.Component {
       event: undefined,
       person: undefined,
       loading: false,
+      success: false,
       missingPersonData: false,
       error: '',
     };
@@ -48,8 +51,13 @@ class EventParticipationPage extends React.Component {
           event_id: event.id,
           person_id: personId,
         });
-        this.setState({ person: undefined });
+        this.setState({ person: undefined, missingPersonData: false, success: true});
+        setTimeout(() => {
+          this.setState({success: false})
+        }, 3000); 
       } catch (err) {
+        this.setState({ person: undefined, missingPersonData: false, });
+        console.log(err);
         this.onAddError(
           'Du kan bare melde deg på en gang, eller vil du betale mer?!',
         );
@@ -103,16 +111,17 @@ class EventParticipationPage extends React.Component {
   };
 
   render() {
-    const { loading, person, event, missingPersonData, error } = this.state;
+    const { loading, person, event, missingPersonData, error, success } = this.state;
     if (!event) {
       return null;
     }
     return (
       <Fragment>
         <h1>{event.name}</h1>
-        <i>{event.date}</i>
+        <i>{`Dato: ${formatDate(event.date)}`}</i>
         {person && <p>{`Hei ${person.first_name} ${person.last_name}`}</p>}
         {error && <ErrorMessage text={error} />}
+        {success && <RegistrationSucess text="Registrering fullført!" />}
         {loading && <Spinner text="Kort registrert. Vennligst vent." />}
         {missingPersonData && (
           <PersonForm
