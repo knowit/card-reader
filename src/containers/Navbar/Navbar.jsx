@@ -18,7 +18,7 @@ const styles = {
     marginRight: 20,
   },
   red: {
-    backgroundColor: colors.knowit.purpleLight,
+    backgroundColor: colors.knowit.blueLight,
   },
 };
 

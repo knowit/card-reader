@@ -21,6 +21,10 @@ const colors = {
     greyLight: '#B1B3B3',
     greyLighter: '#D0D0CE',
     greyLightest: '#E4E2DB',
+    blue: '#28334A',
+    blueLight: '#57728B',
+    blueLighter: '#9eb5cb',
+    blueLightest: '#d6e1ec',
   },
 };
 

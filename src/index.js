@@ -14,7 +14,7 @@ server.listen(process.env.PORT || 3000, error => {
   console.log('🚀 started');
 });
 
-if (module.hot) {
+/*if (module.hot) {
   console.log('✅  Server-side HMR Enabled!');
 
   module.hot.accept('./server/server', () => {
@@ -29,4 +29,4 @@ if (module.hot) {
       console.error(error);
     }
   });
-}
+}*/

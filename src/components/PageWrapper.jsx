@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import Route from 'react-router-dom/Route';
 import Switch from 'react-router-dom/Switch';
 import styled from '@emotion/styled';
-import { colors, mediaQueries } from '../util/variables';
+import { colors, mediaQueries, spacing } from '../util/variables';
 import { css } from '@emotion/core';
 
 const StyledPageWrapper = styled.div`
@@ -20,15 +20,23 @@ const StyledContentContainer = styled.div`
   padding: 0 5%;
   margin-top: 5rem;
   @media (${mediaQueries.xxlarge}) {
-    padding: 0 20%;
+    padding: 0 10%;
   }
   @media (${mediaQueries.medium}) {
     padding: 0;
   }
 `;
 
+const StyledInnerContent = styled.div`
+  background-color: white;
+  padding: ${spacing.normal};
+  border: 1px solid ${colors.knowit.greyLight};
+`;
+
 const ContentContainer = ({ children, ...rest }) => (
-  <StyledContentContainer {...rest}>{children}</StyledContentContainer>
+  <StyledContentContainer {...rest}>
+    <StyledInnerContent>{children}</StyledInnerContent>
+  </StyledContentContainer>
 );
 
 export { ContentContainer };

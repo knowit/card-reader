@@ -31,7 +31,7 @@ app.disable('x-powered-by');
 const renderHtmlString = () => renderToString(<Html />);
 
 const WebSocketServer = WebSocket.Server;
-const wss = new WebSocketServer({ port: config.websocketPort }); //{ on: () => {}};
+let wss = new WebSocketServer({ port: config.websocketPort }); //{ on: () => {}};
 
 wss.on('connection', ws => {
   ws.on('message', message => {
