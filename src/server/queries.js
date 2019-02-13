@@ -92,6 +92,15 @@ const fetchCompanies = async () => {
   return result;
 };
 
+const createEvent = async({ eventName, eventDate }) => {
+  const insertEventQuery = {
+    text:'INSERT INTO events(name, date) VALUES($1, $2)',
+    values: [eventName, eventDate]
+  };
+
+  return await executeQuery(insertEventQuery)
+};
+
 const fetchEvents = async () => {
   const query = {
     name: 'fetch-events',
@@ -143,6 +152,7 @@ export {
   addParticipation,
   updatePersonById,
   createPerson,
+  createEvent,
   fetchEvents,
   fetchEventById,
   fetchCompanies,

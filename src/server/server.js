@@ -18,7 +18,7 @@ import {
   fetchEvents,
   fetchEventById,
   fetchCompanies,
-  fetchParticipantsByEventId,
+  fetchParticipantsByEventId, createEvent,
 } from './queries';
 
 const app = express();
@@ -68,6 +68,16 @@ app.get('/api/events', async (req, res) => {
   try {
     const result = await fetchEvents();
     res.send(result);
+  } catch (err) {
+    res.sendStatus(400);
+  }
+});
+
+app.post('/api/events', async (req, res) => {
+  try {
+    await createEvent(req.body);
+    const result = await fetchEventById(req.body.id);
+    res.send(result)
   } catch (err) {
     res.sendStatus(400);
   }

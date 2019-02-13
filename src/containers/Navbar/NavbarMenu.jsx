@@ -66,6 +66,9 @@ const NavbarMenu = ({ isOpen, onClose }) => {
             <ListItemText>Brukere</ListItemText>
           </ListItem>
         </Link>
+        {/*<Link>*/}
+
+        {/*</Link>*/}
       </StyledList>
     </SwipeableDrawer>
   );

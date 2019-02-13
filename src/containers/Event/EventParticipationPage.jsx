@@ -9,7 +9,7 @@ import {
 } from '../../util/apiEndpoints';
 import PersonForm from '../Person/PersonForm';
 import Spinner from '../../components/Spinner';
-import RegistrationSucess from '../../components/RegistrationSucess';
+import RegistrationSuccess from '../../components/RegistrationSuccess';
 import ErrorMessage from '../../components/ErrorMessage';
 import formatDate from '../../util/formatDate';
 import EventParticipantsList from './EventParticipantsList';
@@ -149,7 +149,7 @@ class EventParticipationPage extends React.Component {
         <h1>{event.name}</h1>
         <i>{`Dato: ${formatDate(event.date)}`}</i>
         {error && <ErrorMessage text={error} />}
-        {success && <RegistrationSucess text={success} />}
+        {success && <RegistrationSuccess text={success} />}
         {loading && <Spinner text="Kort registrert. Vennligst vent." />}
         {missingPersonData && (
           <PersonForm

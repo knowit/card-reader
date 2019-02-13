@@ -18,7 +18,7 @@ const greenStyle = css`
   }
 `;
 
-const RegistrationSucess = ({ text }) => {
+const RegistrationSuccess = ({ text }) => {
   return (
     <div css={greenStyle}>
       <FixedMessage css={greenStyle}>
@@ -29,8 +29,8 @@ const RegistrationSucess = ({ text }) => {
   );
 };
 
-RegistrationSucess.propTypes = {
+RegistrationSuccess.propTypes = {
   text: PropTypes.string,
 };
 
-export default RegistrationSucess;
+export default RegistrationSuccess;
