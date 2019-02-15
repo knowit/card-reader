@@ -24,6 +24,7 @@ const StyledReminderPage = styled.div`
 const ReminderPage = () => (
   <StyledReminderPage>
     <h1>Husk å skanne kortet ditt!</h1>
+    <h4>Vi prøver ut et nytt system for deltakelse i Knowit-events</h4>
     <h4>Hilsen Sosialkomitéen 😘</h4>
   </StyledReminderPage>
 );
