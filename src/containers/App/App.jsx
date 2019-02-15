@@ -7,6 +7,7 @@ import Home from '../Home';
 import Navbar from '../Navbar';
 import EventPage from '../Event';
 import Footer from './Footer';
+import ReminderPage from '../Reminder';
 
 const globalStyles = css`
   body {
@@ -23,6 +24,7 @@ const App = () => (
       <Route exact path="/" component={Home} />
       <Route path="/events" component={EventPage} />
       <Route path="/users" component={Home} />
+      <Route path="/reminder" component={ReminderPage} />
     </Switch>
     <Footer />
   </Fragment>
