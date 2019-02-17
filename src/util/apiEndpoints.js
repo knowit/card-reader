@@ -80,3 +80,15 @@ export const fetchEventParticipants = eventId => {
     `${baseUrl}/events/${eventId}/participants`,
   ).then(resolveJsonOrRejectWithError);
 };
+
+export const fetchEventAttendanceByCompany = eventId => {
+  return fetchWithAuthorization(
+    `${baseUrl}/events/${eventId}/statistics/attendance`,
+  ).then(resolveJsonOrRejectWithError)
+};
+
+export const fetchTotalAttendeesForEvent = eventId => {
+  return fetchWithAuthorization(
+    `${baseUrl}/events/${eventId}/statistics/attendees-total`,
+  ).then(resolveJsonOrRejectWithError)
+};

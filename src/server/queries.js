@@ -136,6 +136,36 @@ const fetchParticipantsByEventId = async eventId => {
   return result;
 };
 
+const fetchCompanyAttendanceCountByEventId = async eventId => {
+  if (!eventId) {
+    throw new Error({ status: 400, message: 'No event id received at server' });
+  }
+  const query = {
+    name: 'fetch-attendance-count-by-event-id',
+    text: 'SELECT c.id as company_id, c.name as company_name, COUNT(*) as attendees FROM ((companies AS c ' +
+    'INNER JOIN persons AS p ON c.id = p.company_id) ' +
+    'INNER JOIN participation as part ON p.id = part.person_id) ' +
+    'WHERE part.event_id = $1' +
+    'GROUP BY c.id',
+    values: [eventId],
+  };
+  const result = await executeQuery(query);
+  return result
+};
+
+const fetchTotalNumberOfAttendesByEventId = async eventId => {
+  if (!eventId) {
+    throw new Error({ status: 400, message: 'No event id received at server' });
+  }
+  const query = {
+    name: 'fetch-total-number-of-attendees-by-event-id',
+    text: 'SELECT COUNT(*) AS attendees FROM participation WHERE participation.event_id = $1',
+    values: [eventId],
+  };
+  const result = await executeQuery(query);
+  return result[0]
+};
+
 export {
   fetchPersonById,
   fetchPersonByCardId,
@@ -147,4 +177,6 @@ export {
   fetchEventById,
   fetchCompanies,
   fetchParticipantsByEventId,
+  fetchCompanyAttendanceCountByEventId,
+  fetchTotalNumberOfAttendesByEventId,
 };

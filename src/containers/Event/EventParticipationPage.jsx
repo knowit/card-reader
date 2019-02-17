@@ -3,9 +3,10 @@ import { withRouter } from 'react-router-dom';
 import config from '../../config';
 import {
   fetchEvent,
-  fetchPerson,
-  participate,
   fetchEventParticipants,
+  fetchPerson,
+  fetchEventAttendanceByCompany,
+  participate, fetchTotalAttendeesForEvent,
 } from '../../util/apiEndpoints';
 import PersonForm from '../Person/PersonForm';
 import Spinner from '../../components/Spinner';
@@ -13,6 +14,8 @@ import RegistrationSucess from '../../components/RegistrationSucess';
 import ErrorMessage from '../../components/ErrorMessage';
 import formatDate from '../../util/formatDate';
 import EventParticipantsList from './EventParticipantsList';
+import EventStatistics from './EventStatistics';
+import PropTypes from 'prop-types';
 
 const isMissingPersonData = person =>
   !person ||
@@ -29,6 +32,8 @@ class EventParticipationPage extends React.Component {
       loading: false,
       success: false,
       participants: [],
+      attendanceByCompany: [],
+      totalAttendees: null,
       missingPersonData: false,
       error: '',
     };
@@ -42,7 +47,9 @@ class EventParticipationPage extends React.Component {
     } = this.props;
     const participants = await fetchEventParticipants(eventId);
     const event = await fetchEvent(eventId);
-    this.setState({ event, participants });
+    const attendanceByCompany = await fetchEventAttendanceByCompany(eventId);
+    const totalAttendees = await fetchTotalAttendeesForEvent(eventId);
+    this.setState({ event, participants, attendanceByCompany, totalAttendees: totalAttendees.attendees });
     this.cardListener();
   }
 
@@ -64,6 +71,8 @@ class EventParticipationPage extends React.Component {
           person_id: personId,
         });
         const participants = await fetchEventParticipants(eventId);
+        const attendanceByCompany = await fetchEventAttendanceByCompany(eventId);
+        const totalAttendees = await fetchTotalAttendeesForEvent(eventId);
         this.setState({
           person: undefined,
           missingPersonData: false,
@@ -72,6 +81,8 @@ class EventParticipationPage extends React.Component {
           }! Kos deg i kveld :)`,
           loading: false,
           participants,
+          attendanceByCompany,
+          totalAttendees: totalAttendees.attendees,
         });
         setTimeout(() => {
           this.setState({ success: undefined });
@@ -140,6 +151,8 @@ class EventParticipationPage extends React.Component {
       error,
       success,
       participants,
+      attendanceByCompany,
+      totalAttendees,
     } = this.state;
     if (!event) {
       return null;
@@ -158,9 +171,18 @@ class EventParticipationPage extends React.Component {
           />
         )}
         <EventParticipantsList participants={participants} />
+        {/*TODO: Insert margin between tables*/}
+        <h2>Statistikk</h2>
+        <EventStatistics attendanceByCompany={attendanceByCompany} totalAttendees={totalAttendees} />
       </Fragment>
     );
   }
 }
+
+EventParticipationPage.propTypes = {
+  totalAttendees: PropTypes.shape({
+    attendees: PropTypes.number,
+  })
+};
 
 export default withRouter(EventParticipationPage);
