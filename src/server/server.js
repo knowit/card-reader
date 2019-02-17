@@ -18,7 +18,7 @@ import {
   fetchEvents,
   fetchEventById,
   fetchCompanies,
-  fetchParticipantsByEventId,
+  fetchParticipantsByEventId, fetchCompanyAttendanceCountByEventId, fetchTotalNumberOfAttendesByEventId,
 } from './queries';
 
 const app = express();
@@ -90,6 +90,25 @@ app.get('/api/events/:id/participants', async (req, res) => {
     res.sendStatus(400);
   }
 });
+
+app.get('/api/events/:id/statistics/attendance', async (req, res) => {
+  try {
+    const result = await fetchCompanyAttendanceCountByEventId(req.params.id);
+    res.send(result);
+  } catch (err) {
+    res.sendStatus(400);
+  }
+});
+
+app.get('/api/events/:id/statistics/attendees-total', async (req, res) => {
+  try {
+    const result = await fetchTotalNumberOfAttendesByEventId(req.params.id);
+    res.send(result);
+  } catch (err) {
+    res.sendStatus(400);
+  }
+});
+
 
 //Companies
 
