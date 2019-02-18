@@ -75,6 +75,7 @@ class PersonForm extends React.Component {
         <h1>{person.id ? 'Oppdater bruker' : 'Opprett bruker'}</h1>
         <Formik
           initialValues={person}
+          enableReinitialize
           onSubmit={this.onSubmit}
           render={({
             values,
@@ -112,6 +113,7 @@ class PersonForm extends React.Component {
               {errors.last_name && touched.last_name && (
                 <div>{errors.last_name}</div>
               )}
+              <h1 style={{color: 'red'}}>HUSK Å VELGE FIRMA</h1>
               <StyledSelect
                 value={values.company_id}
                 onChange={handleChange}
@@ -138,8 +140,7 @@ class PersonForm extends React.Component {
               />
               <StyledButton
                 variant="contained"
-                type="submit"
-                disabled={isSubmitting}>
+                type="submit">
                 Lagre og delta på arrangement
               </StyledButton>
             </form>

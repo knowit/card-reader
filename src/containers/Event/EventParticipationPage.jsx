@@ -75,7 +75,7 @@ class EventParticipationPage extends React.Component {
         });
         setTimeout(() => {
           this.setState({ success: undefined });
-        }, 4000);
+        }, 2000);
       } catch (err) {
         this.setState({ person: undefined, missingPersonData: false });
         this.onAddError(
@@ -93,7 +93,7 @@ class EventParticipationPage extends React.Component {
 
     setTimeout(() => {
       this.setState({ error: '' });
-    }, 2000);
+    }, 1000);
   };
 
   cardListener = () => {
@@ -106,7 +106,7 @@ class EventParticipationPage extends React.Component {
 
     ws.onmessage = async ev => {
       if (ev.data !== 'connected') {
-        this.setState({ loading: true });
+        this.setState({ loading: true, missingPersonData: false });
         await setTimeout(async () => {
           try {
             const person = await fetchPerson(ev.data);
