@@ -1,6 +1,6 @@
 # Cardreader
 
-Created with [React](https://reactjs.org/) and[Razzle](https://github.com/jaredpalmer/razzle).
+Created with [React](https://reactjs.org/) and [Razzle](https://github.com/jaredpalmer/razzle).
 
 ## Before commit
 Run prettier to pretify the code.
