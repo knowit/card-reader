@@ -23,7 +23,7 @@ To build, run:
 yarn build
 ```
 
-Stadning in the root folder of the project  To start the PCSC listener, run following command from the *root* folder of this project:
+To start the PCSC listener, run following command from the *root* folder of this project:
 ```sh
 node pcsc/listenPcsc
 ```
