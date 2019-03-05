@@ -6,7 +6,8 @@ import {
   fetchEventParticipants,
   fetchPerson,
   fetchEventAttendanceByCompany,
-  participate, fetchTotalAttendeesForEvent,
+  participate,
+  fetchTotalAttendeesForEvent,
 } from '../../util/apiEndpoints';
 import PersonForm from '../Person/PersonForm';
 import Spinner from '../../components/Spinner';
@@ -49,7 +50,12 @@ class EventParticipationPage extends React.Component {
     const event = await fetchEvent(eventId);
     const attendanceByCompany = await fetchEventAttendanceByCompany(eventId);
     const totalAttendees = await fetchTotalAttendeesForEvent(eventId);
-    this.setState({ event, participants, attendanceByCompany, totalAttendees: totalAttendees.attendees });
+    this.setState({
+      event,
+      participants,
+      attendanceByCompany,
+      totalAttendees: totalAttendees.attendees,
+    });
     this.cardListener();
   }
 
@@ -71,7 +77,9 @@ class EventParticipationPage extends React.Component {
           person_id: personId,
         });
         const participants = await fetchEventParticipants(eventId);
-        const attendanceByCompany = await fetchEventAttendanceByCompany(eventId);
+        const attendanceByCompany = await fetchEventAttendanceByCompany(
+          eventId,
+        );
         const totalAttendees = await fetchTotalAttendeesForEvent(eventId);
         this.setState({
           person: undefined,
@@ -173,7 +181,10 @@ class EventParticipationPage extends React.Component {
         <EventParticipantsList participants={participants} />
         {/*TODO: Insert margin between tables*/}
         <h2>Statistikk</h2>
-        <EventStatistics attendanceByCompany={attendanceByCompany} totalAttendees={totalAttendees} />
+        <EventStatistics
+          attendanceByCompany={attendanceByCompany}
+          totalAttendees={totalAttendees}
+        />
       </Fragment>
     );
   }
@@ -182,7 +193,7 @@ class EventParticipationPage extends React.Component {
 EventParticipationPage.propTypes = {
   totalAttendees: PropTypes.shape({
     attendees: PropTypes.number,
-  })
+  }),
 };
 
 export default withRouter(EventParticipationPage);

@@ -113,7 +113,7 @@ class PersonForm extends React.Component {
               {errors.last_name && touched.last_name && (
                 <div>{errors.last_name}</div>
               )}
-              <h1 style={{color: 'red'}}>HUSK Å VELGE FIRMA</h1>
+              <h1 style={{ color: 'red' }}>HUSK Å VELGE FIRMA</h1>
               <StyledSelect
                 value={values.company_id}
                 onChange={handleChange}
@@ -138,9 +138,7 @@ class PersonForm extends React.Component {
                   readOnly: true,
                 }}
               />
-              <StyledButton
-                variant="contained"
-                type="submit">
+              <StyledButton variant="contained" type="submit">
                 Lagre og delta på arrangement
               </StyledButton>
             </form>

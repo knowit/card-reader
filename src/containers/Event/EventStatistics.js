@@ -1,5 +1,9 @@
 import React from 'react';
-import { StyledCell, StyledHeader, StyledRow } from '../../components/TableStyles';
+import {
+  StyledCell,
+  StyledHeader,
+  StyledRow,
+} from '../../components/TableStyles';
 
 const EventStatistics = ({ attendanceByCompany, totalAttendees }) => (
   <div>
@@ -18,7 +22,7 @@ const EventStatistics = ({ attendanceByCompany, totalAttendees }) => (
               <StyledCell>{company_name}</StyledCell>
               <StyledCell>{attendees}</StyledCell>
             </StyledRow>
-          )
+          );
         })}
         <StyledRow>
           <StyledCell>Total</StyledCell>

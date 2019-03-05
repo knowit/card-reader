@@ -18,7 +18,9 @@ import {
   fetchEvents,
   fetchEventById,
   fetchCompanies,
-  fetchParticipantsByEventId, fetchCompanyAttendanceCountByEventId, fetchTotalNumberOfAttendesByEventId,
+  fetchParticipantsByEventId,
+  fetchCompanyAttendanceCountByEventId,
+  fetchTotalNumberOfAttendesByEventId,
 } from './queries';
 
 const app = express();
@@ -108,7 +110,6 @@ app.get('/api/events/:id/statistics/attendees-total', async (req, res) => {
     res.sendStatus(400);
   }
 });
-
 
 //Companies
 

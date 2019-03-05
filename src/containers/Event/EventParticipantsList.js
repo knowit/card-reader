@@ -1,6 +1,9 @@
 import React from 'react';
-import { StyledCell, StyledHeader, StyledRow } from '../../components/TableStyles';
-
+import {
+  StyledCell,
+  StyledHeader,
+  StyledRow,
+} from '../../components/TableStyles';
 
 const EventParticipantsList = ({ participants }) => (
   <div>

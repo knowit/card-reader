@@ -84,11 +84,11 @@ export const fetchEventParticipants = eventId => {
 export const fetchEventAttendanceByCompany = eventId => {
   return fetchWithAuthorization(
     `${baseUrl}/events/${eventId}/statistics/attendance`,
-  ).then(resolveJsonOrRejectWithError)
+  ).then(resolveJsonOrRejectWithError);
 };
 
 export const fetchTotalAttendeesForEvent = eventId => {
   return fetchWithAuthorization(
     `${baseUrl}/events/${eventId}/statistics/attendees-total`,
-  ).then(resolveJsonOrRejectWithError)
+  ).then(resolveJsonOrRejectWithError);
 };

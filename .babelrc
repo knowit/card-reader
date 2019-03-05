@@ -1,6 +1,5 @@
 {
   "presets": ["razzle/babel"],
   "plugins": ["emotion"]
-
 }
 

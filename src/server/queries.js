@@ -142,15 +142,16 @@ const fetchCompanyAttendanceCountByEventId = async eventId => {
   }
   const query = {
     name: 'fetch-attendance-count-by-event-id',
-    text: 'SELECT c.id as company_id, c.name as company_name, COUNT(*) as attendees FROM ((companies AS c ' +
-    'INNER JOIN persons AS p ON c.id = p.company_id) ' +
-    'INNER JOIN participation as part ON p.id = part.person_id) ' +
-    'WHERE part.event_id = $1' +
-    'GROUP BY c.id',
+    text:
+      'SELECT c.id as company_id, c.name as company_name, COUNT(*) as attendees FROM ((companies AS c ' +
+      'INNER JOIN persons AS p ON c.id = p.company_id) ' +
+      'INNER JOIN participation as part ON p.id = part.person_id) ' +
+      'WHERE part.event_id = $1' +
+      'GROUP BY c.id',
     values: [eventId],
   };
   const result = await executeQuery(query);
-  return result
+  return result;
 };
 
 const fetchTotalNumberOfAttendesByEventId = async eventId => {
@@ -159,11 +160,12 @@ const fetchTotalNumberOfAttendesByEventId = async eventId => {
   }
   const query = {
     name: 'fetch-total-number-of-attendees-by-event-id',
-    text: 'SELECT COUNT(*) AS attendees FROM participation WHERE participation.event_id = $1',
+    text:
+      'SELECT COUNT(*) AS attendees FROM participation WHERE participation.event_id = $1',
     values: [eventId],
   };
   const result = await executeQuery(query);
-  return result[0]
+  return result[0];
 };
 
 export {
