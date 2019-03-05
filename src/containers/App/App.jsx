@@ -14,6 +14,9 @@ const globalStyles = css`
     margin: 0;
     font-family: 'Raleway', sans-serif;
   }
+  table {
+    border-collapse: collapse;
+  }
 `;
 
 const App = () => (
