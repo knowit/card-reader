@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import config from '../../config';
 import {
   fetchEvent,
@@ -16,8 +17,7 @@ import ErrorMessage from '../../components/ErrorMessage';
 import formatDate from '../../util/formatDate';
 import EventParticipantsList from './EventParticipantsList';
 import EventStatistics from './EventStatistics';
-import PropTypes from 'prop-types';
-
+import CopyEventData from './CopyEventData';
 const isMissingPersonData = person =>
   !person ||
   person.company_id === null ||
@@ -184,6 +184,10 @@ class EventParticipationPage extends React.Component {
         <EventStatistics
           attendanceByCompany={attendanceByCompany}
           totalAttendees={totalAttendees}
+        />
+        <CopyEventData
+          participants={participants}
+          attendanceByCompany={attendanceByCompany}
         />
       </Fragment>
     );

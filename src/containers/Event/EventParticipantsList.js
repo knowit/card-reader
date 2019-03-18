@@ -17,16 +17,13 @@ const EventParticipantsList = ({ participants }) => (
         </StyledRow>
       </thead>
       <tbody>
-        {participants.map(person => {
-          const { person_id, first_name, last_name, company } = person;
-          return (
-            <StyledRow key={person_id}>
-              <StyledCell>{first_name}</StyledCell>
-              <StyledCell>{last_name}</StyledCell>
-              <StyledCell>{company}</StyledCell>
-            </StyledRow>
-          );
-        })}
+        {participants.map(({ person_id, first_name, last_name, company }) => (
+          <StyledRow key={person_id}>
+            <StyledCell>{first_name}</StyledCell>
+            <StyledCell>{last_name}</StyledCell>
+            <StyledCell>{company}</StyledCell>
+          </StyledRow>
+        ))}
       </tbody>
     </table>
   </div>
